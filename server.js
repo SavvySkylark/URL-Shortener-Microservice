@@ -16,8 +16,9 @@ app.get("/", function (request, response) {
   response.sendFile(__dirname + '/views/index.html');
 });
 
-app.get("/new/:url", function (request, response) {
-  response.send(dreams);
+app.get("/new/*", function (req, res) {
+  console.log(req.params);
+  res.end();
 });
 
 app.get("/dreams", function (request, response) {

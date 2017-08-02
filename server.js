@@ -18,6 +18,13 @@ app.get("/", function (request, response) {
 
 app.get("/new/*", function (req, res) {
   console.log(req.params);
+  /*
+   1. validate url input
+      throw error if invalid
+   2. check db for valid url
+     a. if found return shortend url
+     b. not found add new entry to db and return url.
+  */
   res.end();
 });
 

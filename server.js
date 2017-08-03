@@ -21,12 +21,11 @@ app.get("/new/*", function (req, res) {
   var resPayload;
   
   if (urlRegex.test(req.params[0])) {
-    
+      
   } else {
-    {error: "Wrong url format, make sure you have a valid protocol and real site."};
     res.statusCode = 400;
     res.statusMessage = "invalid uri parameter";
-    
+    res.write(JSON.stringify({error: "Wrong url format, make sure you have a valid protocol and real site."}));
   }
   /*
    1. validate url input

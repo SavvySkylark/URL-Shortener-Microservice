@@ -26,9 +26,9 @@ app.get("/new/*", function (req, res) {
   if (urlRegex.test(req.params[0])) {
     mongoClient.connect(mongoUrl, function(err, db) {
       if (err) {
-    res.statusCode = 400;
-    res.statusMessage = "invalid uri parameter";
-    res.write(JSON.stringify({error: "Wrong url format, make sure you have a valid protocol and real site."}));
+        res.statusCode = 400;
+        res.statusMessage = "invalid uri parameter";
+        resPayload = {error: "internal Server Error"};
         console.error('failed to connect to freecodecamp db');
       } else {
         console.log('connected to db');
@@ -39,7 +39,7 @@ app.get("/new/*", function (req, res) {
   } else {
     res.statusCode = 400;
     res.statusMessage = "invalid uri parameter";
-    res.write(JSON.stringify({error: "Wrong url format, make sure you have a valid protocol and real site."}));
+    resPayload = {error: "Wrong url format, make sure you have a valid protocol and real site."};
   }
   /*
    1. validate url input
@@ -48,7 +48,7 @@ app.get("/new/*", function (req, res) {
      a. if found return shortend url
      b. not found add new entry to db and return url.
   */
-  res.end();
+  res.end(JSON.stringify(resPayload));
 });
 
 app.get("/dreams", function (request, response) {

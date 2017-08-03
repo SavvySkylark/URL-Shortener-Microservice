@@ -4,8 +4,8 @@ var mongoClient = require('mongodb').MongoClient;
 
 //init express server
 var app = express();
-var pw = encodeURIComponent('@Csinsc#MlA37');
-var mongoUrl = 'mongodb://SavvySkylark:' + pw + 
+var pw = encodeURIComponent('skyMAN112#FrE12');
+var mongoUrl = 'mongodb://SavvySkylark:' + pw + '@ds133162.mlab.com:33162/freecodecamp';
 var urlRegex = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm;
 
 var mongoCache;
@@ -24,6 +24,17 @@ app.get("/new/*", function (req, res) {
   var resPayload;
   
   if (urlRegex.test(req.params[0])) {
+    mongoClient.connect(mongoUrl, function(err, db) {
+      if (err) {
+        res.status = 500;
+        res.statusMessage = 'Internal Server Error';
+        res.write(JSON.stringify({error: "Internal Server Error"}));
+        console.error('failed to connect to freecodecamp db');
+      } else {
+        console.log('connected to db');
+      }
+      db.close();
+    });
       
   } else {
     res.statusCode = 400;

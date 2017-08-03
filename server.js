@@ -1,9 +1,11 @@
-// server.js
-// where your node app starts
-
-// init project
+// require modules 
 var express = require('express');
+var mongoClient = require('mongodb').MongoClient;
+
+//init express server
 var app = express();
+var pw = encodeURIComponent('@Csinsc#MlA37');
+var mongoUrl = 'mongodb://SavvySkylark:' + pw + 
 var urlRegex = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm;
 
 var mongoCache;

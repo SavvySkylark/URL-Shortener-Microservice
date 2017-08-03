@@ -22,10 +22,11 @@ app.get("/", function (request, response) {
 
 app.get("/new/*", function (req, res) {
   var resPayload;
-  console.log(req.params[0]);
-  if (urlRegex.test(req.params[0])) {
+  var url = req.params[0];
+  //console.log(urlRegex.test(req.params[0]));
+  if (urlRegex.test(url)) {
     console.log('hit2');
-    mongoClient.connect(mongoUrl, function(err, db) {
+/*    mongoClient.connect(mongoUrl, function(err, db) {
       if (err) {
         res.statusCode = 400;
         res.statusMessage = "invalid uri parameter";
@@ -36,9 +37,10 @@ app.get("/new/*", function (req, res) {
         db.close();
       }
     });
-      
+  */    
   } else {
     console.log('hit1');
+    console.log(url);
     res.statusCode = 400;
     res.statusMessage = "invalid uri parameter";
     resPayload = {error: "Wrong url format, make sure you have a valid protocol and real site."};

@@ -4,6 +4,7 @@
 // init project
 var express = require('express');
 var app = express();
+var urlRegex = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm;
 
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -17,7 +18,11 @@ app.get("/", function (request, response) {
 });
 
 app.get("/new/*", function (req, res) {
-  console.log(req.params);
+  if(urlRegex.test(req.params[0])){
+    
+  } else {
+    
+  }
   /*
    1. validate url input
       throw error if invalid

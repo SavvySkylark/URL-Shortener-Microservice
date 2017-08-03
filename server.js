@@ -6,7 +6,6 @@ var mongoClient = require('mongodb').MongoClient;
 var app = express();
 var pw = encodeURIComponent('skyMAN112#FrE12');
 var mongoUrl = 'mongodb://SavvySkylark:' + pw + '@ds133162.mlab.com:33162/frecodecamp';
-var urlRegex = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm;
 
 var mongoCache;
 // we've started you off with Express, 
@@ -21,6 +20,7 @@ app.get("/", function (request, response) {
 });
 
 app.get("/new/*", function (req, res) {
+  var urlRegex = /^(?:http(s)?:\/\/)[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\(\)\*\+,;=.]+$/gm;
   var resPayload;
   var url = req.params[0];
   //console.log(urlRegex.test(req.params[0]));

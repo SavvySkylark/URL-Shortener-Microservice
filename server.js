@@ -33,6 +33,7 @@ app.get("/new/*", function (req, res) {
         console.error('failed to connect to freecodecamp db');
       } else {
         console.log('connected to db');
+        console.log(url);
         db.close();
       }
     });

@@ -74,6 +74,10 @@ app.get("/new/*", function (req, res) {
   }
 });
 
+app.get("/:shortUrlId", function(request, response) {
+  m
+});
+
 app.get("/dreams", function (request, response) {
   response.send(dreams);
 });

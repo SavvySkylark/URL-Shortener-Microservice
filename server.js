@@ -8,6 +8,7 @@ var pw = encodeURIComponent('skyMAN112#FrE12');
 var mongoUrl = 'mongodb://SavvySkylark:' + pw + '@ds133162.mlab.com:33162/freecodecamp';
 
 var mongoCache;
+var serverDomainName = "https://square-hovercraft.glitch.me/";
 // we've started you off with Express, 
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
 
@@ -38,7 +39,7 @@ app.get("/new/*", function (req, res) {
           if(docs === null) {
             var urlDoc = {
               original_url: url,
-              short_url: 
+              short_url: serverDomainName + ""
             }
           }
         });

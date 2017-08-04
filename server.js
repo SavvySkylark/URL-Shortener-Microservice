@@ -1,6 +1,7 @@
 // require modules 
 var express = require('express');
 var mongoClient = require('mongodb').MongoClient;
+var shortid = require('shortid');
 
 //init express server
 var app = express();
@@ -32,18 +33,29 @@ app.get("/new/*", function (req, res) {
         res.statusMessage = "invalid uri parameter";
         resPayload = {error: "internal Server Error"};
         console.error('failed to connect to freecodecamp db');
+        res.end(JSON.stringify(resPayload));
       } else {
         var urlsCol = db.collection('urls');
         console.log('connected to db');
-        urlsCol.find({original_url: url}).limit(1).toArray(function(err, docs){
+        urlsCol.find({original_url: url}).limit(1).toArray(function(err, docs) {
           if(docs === null) {
             var urlDoc = {
               original_url: url,
-              short_url: serverDomainName + ""
+              short_url: serverDomainName + shortid.generate()
             }
+            urlsCol.insertOne(urlDoc, function(err, result) {
+              if (err) {
+                console.error('insert failed');
+                resPayload = {error: "Internal Server Error"};
+                res.end(JSON.stringify(resPayload));
+              } else {
+                resPayload = {success: ""};
+                res.end(JSON.stringify(resPayload));
+              }
+              db.close();
+            });
           }
         });
-        db.close();
       }
     });
       
@@ -52,15 +64,8 @@ app.get("/new/*", function (req, res) {
     res.statusCode = 400;
     res.statusMessage = "invalid uri parameter";
     resPayload = {error: "Wrong url format, make sure you have a valid protocol and real site."};
+    res.end(JSON.stringify(resPayload));
   }
-  /*
-   1. validate url input
-      throw error if invalid
-   2. check db for valid url
-     a. if found return shortend url
-     b. not found add new entry to db and return url.
-  */
-  res.end(JSON.stringify(resPayload));
 });
 
 app.get("/dreams", function (request, response) {

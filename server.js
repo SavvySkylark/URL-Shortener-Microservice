@@ -74,8 +74,27 @@ app.get("/new/*", function (req, res) {
   }
 });
 
-app.get("/:shortUrlId", function(request, response) {
-  m
+app.get("/:shortUrlId", function(req, res) {
+  var resPayload;
+  mongoClient.connect(mongoUrl, function(err, db) {
+    if (err) {
+      res.statusMessage = "invalid uri parameter";
+      resPayload = {error: "internal Server Error"};
+      console.error('failed to connect to freecodecamp db');
+      res.end(JSON.stringify(resPayload));
+    } else {
+      var urlsCol = db.collection('urls');
+      urlsCol.find({short_url: serverDomainName + req.params[0]}).toArray(function(err, docs) {
+        if (err) {
+          console.error('faild to find short urserverDomainNamel');
+          resPayload = {error: "internal Server Error"};
+          res.end(JSON.stringify(resPayload));
+          db.close();
+        } else
+      });
+    }
+    
+  });
 });
 
 app.get("/dreams", function (request, response) {

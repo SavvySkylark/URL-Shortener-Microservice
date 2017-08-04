@@ -5,7 +5,7 @@ var mongoClient = require('mongodb').MongoClient;
 //init express server
 var app = express();
 var pw = encodeURIComponent('skyMAN112#FrE12');
-var mongoUrl = 'mongodb://SavvySkylark:' + pw + '@ds133162.mlab.com:33162/frecodecamp';
+var mongoUrl = 'mongodb://SavvySkylark:' + pw + '@ds133162.mlab.com:33162/freecodecamp';
 
 var mongoCache;
 // we've started you off with Express, 
@@ -25,8 +25,7 @@ app.get("/new/*", function (req, res) {
   var url = req.params[0];
   //console.log(urlRegex.test(req.params[0]));
   if (urlRegex.test(url)) {
-    console.log('hit2');
-/*    mongoClient.connect(mongoUrl, function(err, db) {
+    mongoClient.connect(mongoUrl, function(err, db) {
       if (err) {
         res.statusCode = 400;
         res.statusMessage = "invalid uri parameter";
@@ -37,9 +36,8 @@ app.get("/new/*", function (req, res) {
         db.close();
       }
     });
-  */    
+      
   } else {
-    console.log('hit1');
     console.log(url);
     res.statusCode = 400;
     res.statusMessage = "invalid uri parameter";

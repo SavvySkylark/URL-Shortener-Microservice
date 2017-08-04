@@ -49,7 +49,10 @@ app.get("/new/*", function (req, res) {
                 resPayload = {error: "Internal Server Error"};
                 res.end(JSON.stringify(resPayload));
               } else {
-                resPayload = urlDoc;
+                resPayload = {
+                  original_url: urlDoc.original_url,
+                  short_url: urlDoc.short_url
+                }
                 res.end(JSON.stringify(resPayload));
               }
               db.close();
@@ -84,13 +87,20 @@ app.get("/:shortUrlId", function(req, res) {
       res.end(JSON.stringify(resPayload));
     } else {
       var urlsCol = db.collection('urls');
-      urlsCol.find({short_url: serverDomainName + req.params[0]}).toArray(function(err, docs) {
+      urlsCol.find({short_url: serverDomainName + req.params.shortUrlId}).toArray(function(err, docs) {
         if (err) {
           console.error('faild to find short urserverDomainNamel');
           resPayload = {error: "internal Server Error"};
           res.end(JSON.stringify(resPayload));
           db.close();
-        } else
+        } else if (docs.length === 0) {
+          res.statusCode = 404;
+          res.statusMessage = "Not Found";
+          resPayload = {error: "Not Found"};
+          res.end(JSON.stringify(resPayload));
+        } else {
+          res.redirect(docs[0].original_url);
+        }
       });
     }
     

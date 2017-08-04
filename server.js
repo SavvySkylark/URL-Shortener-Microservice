@@ -32,7 +32,13 @@ app.get("/new/*", function (req, res) {
         resPayload = {error: "internal Server Error"};
         console.error('failed to connect to freecodecamp db');
       } else {
+        db.collection('urls').
         console.log('connected to db');
+        find({original_url: url}).limit(1).toArray(function(err, docs){
+          if(docs === null) {
+             
+          }
+        });
         db.close();
       }
     });

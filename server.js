@@ -38,7 +38,7 @@ app.get("/new/*", function (req, res) {
         var urlsCol = db.collection('urls');
         console.log('connected to db');
         urlsCol.find({original_url: url}).limit(1).toArray(function(err, docs) {
-          if(docs === null) {
+          if(docs.length === 0) {
             var urlDoc = {
               original_url: url,
               short_url: serverDomainName + shortid.generate()
@@ -49,11 +49,17 @@ app.get("/new/*", function (req, res) {
                 resPayload = {error: "Internal Server Error"};
                 res.end(JSON.stringify(resPayload));
               } else {
-                resPayload = {success: ""};
+                resPayload = urlDoc;
                 res.end(JSON.stringify(resPayload));
               }
               db.close();
             });
+          } else {
+            resPayload = {
+              original_url: docs[0].original_url,
+              short_url: docs[0].short_url
+            };
+            res.end(JSON.stringify(resPayload));
           }
         });
       }

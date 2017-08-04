@@ -34,6 +34,7 @@ app.get("/new/*", function (req, res) {
       } else {
         console.log('connected to db');
         console.log(url);
+        db.collection('inserts')
         db.close();
       }
     });

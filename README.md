@@ -1,7 +1,9 @@
-URL shrotening service
-=========================
+# URL shrotening service
 
-How to Use
-------------
+
+This is a URL shortening service for [free code camp](https://www.freecodecamp.org).
+
+## How to Use
+
 
 

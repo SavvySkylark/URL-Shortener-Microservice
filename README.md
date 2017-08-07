@@ -14,3 +14,10 @@ This is a URL shortening service for [free code camp](https://www.freecodecamp.o
   short_url: "https://square-hovercraft.glitch.me/r1A8s6HvW"
 }
 ```
+
+## Example usage:
+<https://square-hovercraft.glitch.me/r1A8s6HvW>
+
+will redirect to
+
+<http://www.example.com>
